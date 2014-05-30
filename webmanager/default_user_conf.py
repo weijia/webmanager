@@ -5,4 +5,4 @@ except ImportError:
     
     
 def get_default_username_and_pass():
-    return default_admin_password, default_admin_user
+    return default_admin_user, default_admin_password
