@@ -45,7 +45,7 @@ def handle_create_admin_req(request):
 
 def login_and_go_home(request):
     data = retrieve_param(request)
-    target = data.get("target", "/objsys/homepage/")
+    target = data.get("target", "/obj_sys/homepage/")
     if not request.user.is_authenticated():
         username = data['username']
         password = data['password']
