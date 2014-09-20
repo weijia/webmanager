@@ -30,7 +30,7 @@ def cmd(request):
 
 
 def version(request):
-    #from objsys.baidu_mail import EmailBackend
+    #from obj_sys.baidu_mail import EmailBackend
     return HttpResponse(django.VERSION)
 
 
