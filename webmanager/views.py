@@ -7,10 +7,7 @@ import django
 from ufs_utils.django_utils import retrieve_param
 from django.contrib.auth import models as auth_models, authenticate, login
 from cmd_utils import exec_django_cmd
-try:
-    from keys.admin_pass import default_admin_password, default_admin_user
-except ImportError:
-    from keys_template.admin_pass import default_admin_password, default_admin_user
+from management.commands.create_default_super_user import create_default_admin
 
 
 def cmd(request):
@@ -34,12 +31,8 @@ def version(request):
     return HttpResponse(django.VERSION)
 
 
-def create_admin():
-    auth_models.User.objects.create_superuser(default_admin_user, 'r@j.cn', default_admin_password)
-
-
 def handle_create_admin_req(request):
-    create_admin()
+    create_default_admin()
     return HttpResponse('Done<script>window.href="/"</script>')
 
 
