@@ -4,9 +4,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 import sys
 import django
-from ufs_utils.django_utils import retrieve_param
 from django.contrib.auth import models as auth_models, authenticate, login
 from cmd_utils import exec_django_cmd
+from djangoautoconf.django_utils import retrieve_param
 from management.commands.create_default_super_user import create_default_admin
 
 
