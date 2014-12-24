@@ -1,12 +1,12 @@
-from django.core.management.base import BaseCommand, CommandError
-import django.core.management as core_management
+from django.core.management.base import BaseCommand
+
 from web_manage_tools.user_creator import create_admin
 
 
 try:
-    from keys.admin_pass import default_admin_password, default_admin_user
+    from keys.local_keys.admin_pass import default_admin_password, default_admin_user
 except ImportError:
-    from keys_template.admin_pass import default_admin_password, default_admin_user
+    from keys_default.admin_pass import default_admin_password, default_admin_user
 
 
 def create_default_admin():
