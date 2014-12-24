@@ -28,6 +28,4 @@ Usage:
 
 Features
 --------
-* Create client (using loaddata initial_data.json or create in admin)
-*
 * TODO
