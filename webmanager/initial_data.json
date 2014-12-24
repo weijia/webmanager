@@ -1,0 +1,13 @@
+[{
+	"pk": 1,
+	"model": "oauth2.client",
+	"fields": {
+		"name": "Manual",
+		"url": "http://127.0.0.1/admin",
+		"client_type": 1,
+		"redirect_uri": "http://127.0.0.1/admin",
+		"user": 1,
+		"client_id": "1ffafad63b2e28da9907",
+		"client_secret": "bb9e2a75c022e1b112d51e84cc233ad8a98b5c23"
+	}
+}]

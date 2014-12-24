@@ -1,2 +1,2 @@
 default_admin_user = "richard"
-default_admin_password = "richard888"
+default_admin_password = "richard555"
