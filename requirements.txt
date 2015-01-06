@@ -1,2 +1,6 @@
 wheel==0.22.0
+#Following are optional
+#For oauth2
 django-oauth2-provider
+#For captcha
+django-simple-captcha
