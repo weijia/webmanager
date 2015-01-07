@@ -1,7 +1,10 @@
 try:
-    from django_commands_dict import django_commands_dict
+    from extra_settings.local_settings.django_commands_dict import django_commands_dict
 except ImportError:
-    django_commands_dict = None
+    try:
+        from django_commands_dict import django_commands_dict
+    except ImportError:
+        django_commands_dict = None
 
 
 import django.core.management as core_management

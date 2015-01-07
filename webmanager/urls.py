@@ -6,9 +6,27 @@ urlpatterns = patterns('',
     url(r'^django_version/$', 'webmanager.views.version'),
     url(r'^create_admin_user/$', 'webmanager.views.handle_create_admin_req'),
     url(r'^login_and_go_home/$', 'webmanager.views.login_and_go_home'),
-    url(r'^login_from_oauth2/$', 'webmanager.views.login_from_oauth2'),
-    url(r'^captcha/$', 'webmanager.views_captcha.some_view'),
 )
+
+try:
+    from provider.oauth2.backends import AccessTokenBackend
+
+    urlpatterns += patterns('',
+        url(r'^login_from_oauth2/$', 'webmanager.views_oauth2.login_from_oauth2'),
+    )
+except ImportError:
+    pass
+	
+	
+try:
+    from captcha.fields import CaptchaField
+
+    urlpatterns += patterns('',
+        url(r'^captcha/$', 'webmanager.views_captcha.some_view'),
+    )
+except ImportError:
+    pass
+	
 
 # The following can be used to do mail backend testing
 try:
