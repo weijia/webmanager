@@ -9,6 +9,7 @@ import django
 from django.contrib.auth import authenticate, login
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
+from djangoautoconf.req_with_auth import complex_login
 from management.commands.create_default_super_user import create_default_admin
 
 
@@ -42,10 +43,15 @@ def login_and_go_home(request):
     data = retrieve_param(request)
     target = data.get("target", "/obj_sys/homepage/")
     if not request.user.is_authenticated():
-        username = data['username']
-        password = data['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
+        complex_login(request)
     return HttpResponseRedirect(target)
+
+
+def test_login(request):
+    res = ""
+    if not request.user.is_authenticated():
+        res = "Complex login called"
+        complex_login(request)
+    if request.user.is_authenticated():
+        res += "Login OK"
+    return HttpResponse(res)
