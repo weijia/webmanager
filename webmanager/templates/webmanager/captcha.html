@@ -1,0 +1,16 @@
+{% extends "webmanager/bootstrap_base.html" %}
+{% load i18n %}
+{% load admin_static bootstrapped_goodies_tags %}
+{% load url from future %}
+
+<!-- content -->
+{% block content %}
+    {% if human %}
+    <h1>Hello Human</h1>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
