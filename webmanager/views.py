@@ -53,5 +53,5 @@ def test_login(request):
         res = "Complex login called"
         complex_login(request)
     if request.user.is_authenticated():
-        res += "Login OK"
+        res += "Login OK: %s" % request.user.username
     return HttpResponse(res)
