@@ -47,11 +47,16 @@ urlpatterns.extend(get_test_mail_patterns())
 
 add_to_root_url_pattern(
     (
-        url(r'', include('social_auth.urls')),
+        #url(r'', include('social_auth.urls')),
         # url(r'logged-in/', RedirectView.as_view(url='/object_filter/')),
         # url(r'logged-in/', RedirectView.as_view(url='/socialprofile/')),
-        url(r'logged-in/', RedirectView.as_view(url='/resource_bookmarks')),
-        url(r'^accounts/', include('registration.backends.default.urls')),
+        #url(r'logged-in/', RedirectView.as_view(url='/resource_bookmarks')),
+        #url(r'^accounts/', include('registration.backends.default.urls')),
+        #url(r'', RedirectView.as_view(url='/accounts/signin/')),
+        url(r'', include('social.apps.django_app.urls', namespace='social')),
+        url(r'', include('userena.urls')),
+        url(r'^accounts/profile', RedirectView.as_view(url='/yarr/unread/')),
+        url(r'^accounts/', include('userena.urls')),
     )
 
 )
