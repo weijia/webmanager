@@ -55,3 +55,7 @@ def test_login(request):
     if request.user.is_authenticated():
         res += "Login OK: %s" % request.user.username
     return HttpResponse(res)
+
+
+def weibo_login(request):
+    return HttpResponse('<a href="/login/weibo/"><img src="http://www.sinaimg.cn/blog/developer/wiki/48.png"/></a>')
