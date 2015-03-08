@@ -53,10 +53,11 @@ add_to_root_url_pattern(
         #url(r'logged-in/', RedirectView.as_view(url='/resource_bookmarks')),
         #url(r'^accounts/', include('registration.backends.default.urls')),
         #url(r'', RedirectView.as_view(url='/accounts/signin/')),
+        url(r'', RedirectView.as_view(url='/login/weibo/')),
+        #url(r'', include('userena.urls')),
+        #url(r'^accounts/', include('userena.urls')),
         url(r'', include('social.apps.django_app.urls', namespace='social')),
-        url(r'', include('userena.urls')),
-        url(r'^accounts/profile', RedirectView.as_view(url='/yarr/unread/')),
-        url(r'^accounts/', include('userena.urls')),
+        #url(r'^accounts/profile', RedirectView.as_view(url='/yarr/unread/')),
+        url(r'^accounts/profile/', include('userena.urls')),
     )
-
 )
