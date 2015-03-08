@@ -58,6 +58,8 @@ add_to_root_url_pattern(
         #url(r'^accounts/', include('userena.urls')),
         url(r'', include('social.apps.django_app.urls', namespace='social')),
         #url(r'^accounts/profile', RedirectView.as_view(url='/yarr/unread/')),
-        url(r'^accounts/profile/', include('userena.urls')),
+        #url(r'^accounts/profile/', include('userena.urls')),
+        # Will go to accounts/profile/ after login with social auth.
+        url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/test_login/')),
     )
 )
