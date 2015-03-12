@@ -2,11 +2,14 @@
 #from django.template import Context, loader
 #from django.contrib.auth.models import User
 #from django.contrib.auth.backends import ModelBackend
+import json
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 import sys
 import django
 from django.contrib.auth import authenticate, login
+from provider.oauth2.models import AccessToken, Client
+from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
 from djangoautoconf.req_with_auth import complex_login
@@ -54,7 +57,25 @@ def test_login(request):
         complex_login(request)
     if request.user.is_authenticated():
         res += "Login OK: %s" % request.user.username
+        res += ", %s" % get_access_token(request)
     return HttpResponse(res)
+
+
+def get_access_token(request):
+    access_token = AccessToken.objects.create(
+        user=request.user,
+        client=Client.objects.get(pk=1)
+    )
+    return access_token
+
+
+def handle_get_access_token_req(request):
+    res = {}
+    if request.user.is_authenticated():
+        res["username"] = request.user.username
+        access_token = get_access_token(request)
+        res["access_token"] = access_token.token
+    return HttpResponse(json.dumps(res))
 
 
 def weibo_login(request):

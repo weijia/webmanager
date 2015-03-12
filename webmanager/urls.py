@@ -19,6 +19,7 @@ def get_access_token_backend_patterns():
 
     return [
         url(r'^login_from_oauth2/$', 'webmanager.views_oauth2.login_from_oauth2'),
+        url(r'^access_token/$', 'webmanager.views.handle_get_access_token_req'),
         url(r'^oauth2/', include('provider.oauth2.urls', namespace='oauth2')),
     ]
 
@@ -53,13 +54,16 @@ add_to_root_url_pattern(
         #url(r'logged-in/', RedirectView.as_view(url='/resource_bookmarks')),
         #url(r'^accounts/', include('registration.backends.default.urls')),
         #url(r'', RedirectView.as_view(url='/accounts/signin/')),
-        url(r'', RedirectView.as_view(url='/login/weibo/')),
+        url(r'weibo/', RedirectView.as_view(url='/login/weibo/')),
         #url(r'', include('userena.urls')),
         #url(r'^accounts/', include('userena.urls')),
-        url(r'', include('social.apps.django_app.urls', namespace='social')),
+
+        url(r'social/', include('social.apps.django_app.urls', namespace='social')),
+
         #url(r'^accounts/profile', RedirectView.as_view(url='/yarr/unread/')),
         #url(r'^accounts/profile/', include('userena.urls')),
         # Will go to accounts/profile/ after login with social auth.
-        url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/test_login/')),
+        #url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/test_login/')),
+        url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/access_token/')),
     )
 )
