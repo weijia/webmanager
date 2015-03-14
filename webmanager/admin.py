@@ -7,8 +7,8 @@ __author__ = 'weijia'
 register_all([Permission])
 
 
-try:
-    from provider.oauth2.backends import AccessTokenBackend
-    register_all([AccessToken, RefreshToken])
-except ImportError:
-    pass
+# try:
+#     from provider.oauth2.backends import AccessTokenBackend
+#     #register_all([AccessToken, RefreshToken])
+# except ImportError:
+#     pass
