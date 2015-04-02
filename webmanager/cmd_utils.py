@@ -1,5 +1,5 @@
 try:
-    from extra_settings.local_settings.django_commands_dict import django_commands_dict
+    from local.local_settings.django_commands_dict import django_commands_dict
 except ImportError:
     try:
         from django_commands_dict import django_commands_dict
@@ -8,9 +8,6 @@ except ImportError:
 
 
 import django.core.management as core_management
-
-
-from default_user_conf import *
 
 
 def exec_django_cmd(data_params):
