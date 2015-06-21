@@ -1,5 +1,7 @@
 {% extends "admin/base.html" %}
+{% load simplemenu_tags %}
 
+{% load admin_static bootstrapped_goodies_tags %}{% load url from future %}
 {% block extrahead %}
 	{% block css %}
 	{% endblock %}
@@ -11,4 +13,32 @@
 {% block content %}
     {% block container %}
     {% endblock %}
+{% endblock %}
+
+
+<!-- Admin activities -->
+{% block logs %}
+{% endblock %}
+
+<!-- Admin docs -->
+{% block userlinks %}
+{% endblock %}
+
+{% block branding %}
+{% get_simplemenu as menu %}
+
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown apps<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+			  {% for item in menu %}
+					<li {% ifequal item.page.url request.path %}class="selected"{% endifequal %}>
+						<a href="{{ item.page.url }}">{{ item.name }}</a></li>
+			  {% endfor %}
+          </ul>
+        </li>
+      </ul>
+	</div>
 {% endblock %}
