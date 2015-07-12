@@ -40,7 +40,7 @@
           <ul class="dropdown-menu">
               {% for item in menu %}
 					<li {% ifequal item.page.url request.path %}class="selected"{% endifequal %}>
-						<a href="{{ item.page.url }}">{{ item.name }}</a></li>
+						<a href="{{ item.urlstr }}">{{ item.name }}</a></li>
 			  {% endfor %}
           </ul>
         </li>
