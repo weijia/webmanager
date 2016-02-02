@@ -4,16 +4,9 @@ from djangoautoconf.local_key_manager import get_local_key, ConfigurableAttribut
 from web_manage_tools.user_creator import create_admin
 
 
-# try:
-#     from keys.local_keys.admin_pass import default_admin_password, default_admin_user
-# except ImportError:
-#     from keys_default.admin_pass import default_admin_password, default_admin_user
-
-
 def create_default_admin():
-    getter = ConfigurableAttributeGetter("admin_account", "webmanager.keys_default")
-    super_username = getter.get_attr("admin_username")
-    super_password = getter.get_attr("admin_password")
+    super_username = get_local_key("admin_account.admin_username", "webmanager.keys_default")
+    super_password = get_local_key("admin_account.admin_password", "webmanager.keys_default")
     create_admin(super_username,
                  super_password, "r@j.cn")
     print "default admin created"
