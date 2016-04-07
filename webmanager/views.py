@@ -78,8 +78,9 @@ def get_access_token(request):
     try:
         access_token = get_latest_access_token(not_exp_time, request)
     except:
+        c, is_created = Client.objects.get_or_create(pk=1, client_type=1)
         AccessToken.objects.filter(user=request.user,
-                                   client=Client.objects.get(pk=1)).delete()
+                                   client=c).delete()
         access_token = get_latest_access_token(not_exp_time, request)
 
     access_token.expires = now_with_tz + datetime.timedelta(days=5)
