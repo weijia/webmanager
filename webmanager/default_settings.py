@@ -19,7 +19,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
 )
 
-ROOT_URLCONF = 'webmanager.urls'
 
 AUTHENTICATION_BACKENDS += ('django.contrib.auth.backends.ModelBackend', 'guardian.backends.ObjectPermissionBackend')
 
