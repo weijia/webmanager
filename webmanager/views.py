@@ -99,3 +99,7 @@ def handle_get_access_token_req(request):
 
 def weibo_login(request):
     return HttpResponse('<a href="/login/weibo/"><img src="http://www.sinaimg.cn/blog/developer/wiki/48.png"/></a>')
+
+
+def raise_error(request):
+    raise

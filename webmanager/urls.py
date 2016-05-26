@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'^create_admin_user', 'webmanager.views.handle_create_admin_req'),
                        url(r'^login_and_go_home', 'webmanager.views.login_and_go_home'),
                        url(r'^test_login', 'webmanager.views.test_login'),
+                       url(r'^raise_error', 'webmanager.views.raise_error'),
 )
 
 #
