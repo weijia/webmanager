@@ -6,13 +6,17 @@ from web_manage_tools.user_creator import create_admin
 
 
 def create_default_admin():
-    super_username = get_local_key("admin_account.admin_username", "webmanager.keys_default")
+    super_username = get_default_admin_username()
     super_password = get_local_key("admin_account.admin_password", "webmanager.keys_default")
     if not User.objects.filter(username=super_username).exists():
         create_admin(super_username, super_password, "r@j.cn")
         print "default admin created"
     else:
         print "default admin already created"
+
+
+def get_default_admin_username():
+    return get_local_key("admin_account.admin_username", "webmanager.keys_default")
 
 
 class Command(BaseCommand):
