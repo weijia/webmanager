@@ -14,8 +14,9 @@ class Command(BaseCommand):
     help = 'Create command cache for environment where os.listdir is not working'
 
     def handle(self, *args, **options):
-        for key, value in dump_attrs(settings):
-            if type(value) in (list, tuple, dict):
-                print key, "=", value
-            else:
-                print key, "=", '"'+str(value)+'"'
+        with open("local/total_settings.py", "w") as f:
+            for key, value in dump_attrs(settings):
+                if type(value) in (list, tuple, dict):
+                    print >>f, key, "=", value
+                else:
+                    print >>f, key, "=", '"'+str(value)+'"'
