@@ -10,6 +10,7 @@ urlpatterns = patterns('',
                        url(r'^login_and_go_home', 'webmanager.views.login_and_go_home'),
                        url(r'^test_login', 'webmanager.views.test_login'),
                        url(r'^raise_error', 'webmanager.views.raise_error'),
+                       url(r'^access_token/$', 'webmanager.views.handle_get_access_token_req'),
 )
 
 #

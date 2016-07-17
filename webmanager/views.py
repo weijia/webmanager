@@ -4,17 +4,20 @@
 #from django.contrib.auth.backends import ModelBackend
 import json
 import datetime
+
+from compat.json_response import JsonResponse
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 import sys
 import django
 from django.contrib.auth import authenticate, login
 from django.utils.timezone import utc
+from django.views.decorators.csrf import csrf_exempt
 from provider.oauth2.models import AccessToken, Client
 from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
-from djangoautoconf.req_with_auth import complex_login
+from djangoautoconf.req_with_auth import complex_login, RequestWithAuth
 from management.commands.create_default_super_user import create_default_admin
 
 
@@ -88,13 +91,17 @@ def get_access_token(request):
     return access_token
 
 
+@csrf_exempt
 def handle_get_access_token_req(request):
     res = {}
+    req_with_auth = RequestWithAuth(request)
+    if not req_with_auth.is_authenticated():
+        return JsonResponse(res)
     if request.user.is_authenticated():
         res["username"] = request.user.username
         access_token = get_access_token(request)
         res["access_token"] = access_token.token
-    return HttpResponse(json.dumps(res))
+    return JsonResponse(res)
 
 
 def weibo_login(request):
