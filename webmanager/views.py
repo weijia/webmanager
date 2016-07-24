@@ -17,8 +17,8 @@ from provider.oauth2.models import AccessToken, Client
 from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
+from djangoautoconf.management.commands.create_default_super_user import create_default_admin
 from djangoautoconf.req_with_auth import complex_login, RequestWithAuth
-from management.commands.create_default_super_user import create_default_admin
 
 
 def cmd(request):

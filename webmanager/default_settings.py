@@ -1,6 +1,7 @@
 INSTALLED_APPS += (
     'simplemenu',
     'webmanager',
+    'provider.oauth2',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
