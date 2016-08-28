@@ -99,6 +99,7 @@ def handle_get_access_token_req(request):
         return JsonResponse(res)
     if request.user.is_authenticated():
         res["username"] = request.user.username
+        res["user_id"] = request.user.id
         access_token = get_access_token(request)
         res["access_token"] = access_token.token
     return JsonResponse(res)
