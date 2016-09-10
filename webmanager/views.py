@@ -95,14 +95,13 @@ def get_access_token(request):
 def handle_get_access_token_req(request):
     res = {}
     req_with_auth = RequestWithAuth(request)
-    if not req_with_auth.is_authenticated():
-        return JsonResponse(res)
-    if request.user.is_authenticated():
+    if req_with_auth.is_authenticated() and request.user.is_authenticated():
         res["username"] = request.user.username
         res["user_id"] = request.user.id
         access_token = get_access_token(request)
         res["access_token"] = access_token.token
-    return JsonResponse(res)
+        return JsonResponse(res)
+    return HttpResponse('Unauthorized', status=401)
 
 
 def weibo_login(request):
