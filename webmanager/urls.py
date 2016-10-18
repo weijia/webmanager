@@ -72,3 +72,9 @@ urlpatterns = patterns('',
 #         url(r'^email-manager/', include('email_manager.urls', namespace='email_manager', app_name='email_manager')),
 #     )
 # )
+
+add_to_root_url_pattern(
+    (
+        url(r'^accounts/', include('userena.urls')),
+    )
+)
