@@ -18,7 +18,7 @@ from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
 from djangoautoconf.management.commands.create_default_super_user import create_default_admin
-from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, verify_username_password
+from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, assert_username_password
 
 
 def cmd(request):
@@ -66,25 +66,25 @@ def test_login(request):
     return HttpResponse(res)
 
 
-def get_latest_access_token(not_exp_time, request):
+def get_latest_access_token(not_exp_time, user):
     access_token, is_created = AccessToken.objects.get_or_create(
-        user=request.user,
+        user=user,
         client=Client.objects.get(pk=1),
         expires__gt=not_exp_time
     )
     return access_token
 
 
-def get_access_token(request):
+def get_access_token(user):
     now_with_tz = datetime.datetime.utcnow().replace(tzinfo=utc)
     not_exp_time = now_with_tz - datetime.timedelta(days=1)
     try:
-        access_token = get_latest_access_token(not_exp_time, request)
+        access_token = get_latest_access_token(not_exp_time, user)
     except:
         c, is_created = Client.objects.get_or_create(pk=1, client_type=1)
-        AccessToken.objects.filter(user=request.user,
+        AccessToken.objects.filter(user=user,
                                    client=c).delete()
-        access_token = get_latest_access_token(not_exp_time, request)
+        access_token = get_latest_access_token(not_exp_time, user)
 
     access_token.expires = now_with_tz + datetime.timedelta(days=5)
     access_token.save()
@@ -94,15 +94,17 @@ def get_access_token(request):
 @csrf_exempt
 def handle_get_access_token_req(request):
     try:
-        res = {}
-        verify_username_password(request)
-        res["username"] = request.user.username
-        res["user_id"] = request.user.id
-        access_token = get_access_token(request)
-        res["access_token"] = access_token.token
-        return JsonResponse(res)
+        assert_username_password(request)
+        return JsonResponse(get_access_token_response_dict(request.user))
     except:
         return HttpResponse('Unauthorized', status=401)
+
+
+def get_access_token_response_dict(user):
+    res = {"username": user.username, "user_id": user.id}
+    access_token = get_access_token(user)
+    res["access_token"] = access_token.token
+    return res
 
 
 @csrf_exempt
