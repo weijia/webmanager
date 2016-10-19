@@ -18,7 +18,7 @@ from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
 from djangoautoconf.management.commands.create_default_super_user import create_default_admin
-from djangoautoconf.req_with_auth import complex_login, RequestWithAuth
+from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, verify_username_password
 
 
 def cmd(request):
@@ -93,6 +93,20 @@ def get_access_token(request):
 
 @csrf_exempt
 def handle_get_access_token_req(request):
+    try:
+        res = {}
+        verify_username_password(request)
+        res["username"] = request.user.username
+        res["user_id"] = request.user.id
+        access_token = get_access_token(request)
+        res["access_token"] = access_token.token
+        return JsonResponse(res)
+    except:
+        return HttpResponse('Unauthorized', status=401)
+
+
+@csrf_exempt
+def handle_get_access_token_req_with_session(request):
     res = {}
     req_with_auth = RequestWithAuth(request)
     if req_with_auth.is_authenticated() and request.user.is_authenticated():
