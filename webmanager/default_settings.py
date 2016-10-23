@@ -4,6 +4,7 @@ INSTALLED_APPS += (
     'bootstrapform',
     'userenabootstrap',
     'userena',
+    # 'social_auth',
     'provider.oauth2',
 )
 

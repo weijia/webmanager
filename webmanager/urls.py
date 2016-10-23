@@ -48,9 +48,9 @@ urlpatterns = patterns('',
 # # The following can be used to do mail backend testing
 # urlpatterns.extend(get_test_mail_patterns())
 #
-# add_to_root_url_pattern(
-#     (
-#         #url(r'', include('social_auth.urls')),
+add_to_root_url_pattern(
+    (
+#         # url(r'', include('social_auth.urls')),
 #         # url(r'logged-in/', RedirectView.as_view(url='/object_filter/')),
 #         # url(r'logged-in/', RedirectView.as_view(url='/socialprofile/')),
 #         #url(r'logged-in/', RedirectView.as_view(url='/resource_bookmarks')),
@@ -58,7 +58,8 @@ urlpatterns = patterns('',
 #         #url(r'', RedirectView.as_view(url='/accounts/signin/')),
 #         url(r'weibo/', RedirectView.as_view(url='/login/weibo/')),
 #         #url(r'', include('userena.urls')),
-#         url(r'^accounts/', include('userena.urls')),
+        url(r'', RedirectView.as_view(url='/accounts/signin/')),
+        url(r'^accounts/', include('userena.urls')),
 #         url(r'^email_registration/', include('email_registration.urls')),
 #
 #
@@ -70,5 +71,5 @@ urlpatterns = patterns('',
 #         #url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/test_login/')),
 #         url(r'^accounts/profile/', RedirectView.as_view(url='/webmanager/access_token/')),
 #         url(r'^email-manager/', include('email_manager.urls', namespace='email_manager', app_name='email_manager')),
-#     )
-# )
+    )
+)
