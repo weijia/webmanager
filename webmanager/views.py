@@ -62,7 +62,7 @@ def test_login(request):
         complex_login(request)
     if request.user.is_authenticated():
         res += "Login OK: %s" % request.user.username
-        res += ", %s" % get_access_token(request)
+        res += ", %s" % get_access_token(request.user)
     return HttpResponse(res)
 
 
