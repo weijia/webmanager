@@ -18,7 +18,8 @@ from provider.oauth2.views import AccessTokenView
 from cmd_utils import exec_django_cmd
 from djangoautoconf.django_utils import retrieve_param
 from djangoautoconf.management.commands.create_default_super_user import create_default_admin
-from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, assert_username_password
+from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, assert_username_password, UserInactive, \
+    InvalidLogin
 
 
 def cmd(request):
@@ -126,3 +127,22 @@ def weibo_login(request):
 
 def raise_error(request):
     raise
+
+
+@csrf_exempt
+def update_password(request):
+    data = retrieve_param(request)
+    username = data["username"]
+    new_password = data["password"]
+    password = data["old_password"]
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            user.set_password(new_password)
+            user.save()
+        else:
+            raise UserInactive
+    else:
+        raise InvalidLogin
+    return
