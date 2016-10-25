@@ -145,4 +145,4 @@ def update_password(request):
             raise UserInactive
     else:
         raise InvalidLogin
-    return
+    return JsonResponse({"result": "ok"})
