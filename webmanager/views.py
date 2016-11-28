@@ -144,5 +144,5 @@ def update_password(request):
         else:
             raise UserInactive
     else:
-        raise InvalidLogin
+        return HttpResponse('Unauthorized', status=401)
     return JsonResponse({"result": "ok"})
