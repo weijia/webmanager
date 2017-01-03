@@ -8,12 +8,15 @@ INSTALLED_APPS += (
     'provider.oauth2',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
+TEMPLATE_CONTEXT_PROCESSORS += (
     'django.contrib.auth.context_processors.auth',
 )
 
-AUTHENTICATION_BACKENDS += ('django.contrib.auth.backends.ModelBackend',
-                            'guardian.backends.ObjectPermissionBackend')
+AUTHENTICATION_BACKENDS += (
+    'userena.backends.UserenaAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend'
+)
 
 ANONYMOUS_USER_ID = -1
 
