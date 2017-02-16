@@ -1,11 +1,12 @@
 INSTALLED_APPS += (
+    'provider',
+    'provider.oauth2',
     'simplemenu',
     'webmanager',
     'bootstrapform',
     'userenabootstrap',
     'userena',
     # 'social_auth',
-    'provider.oauth2',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
