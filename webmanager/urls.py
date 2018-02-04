@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^raise_error', 'webmanager.views.raise_error'),
                        url(r'^access_token/$', 'webmanager.views.handle_get_access_token_req'),
                        url(r'^update_password/$', 'webmanager.views.update_password'),
+                       url(r'^handle_debug_param_request/$', 'webmanager.views.handle_debug_param_request'),
                        )
 
 #
@@ -58,8 +59,13 @@ add_to_root_url_pattern(
         #         #url(r'', RedirectView.as_view(url='/accounts/signin/')),
         #         url(r'weibo/', RedirectView.as_view(url='/login/weibo/')),
         #         #url(r'', include('userena.urls')),
+
+
         url(r'^$', RedirectView.as_view(url='/accounts/signin/', permanent=False)),
         url(r'^accounts/', include('userena.urls')),
+        url('allauth', include('allauth.urls', namespace='social'))
+
+
         #         url(r'^email_registration/', include('email_registration.urls')),
         #
         #
