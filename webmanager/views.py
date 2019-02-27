@@ -20,6 +20,7 @@ from djangoautoconf.django_utils import retrieve_param
 from djangoautoconf.management.commands.create_default_super_user import create_default_admin
 from djangoautoconf.req_with_auth import complex_login, RequestWithAuth, assert_username_password, UserInactive, \
     InvalidLogin
+from webmanager.models import DebugRequestParam
 
 
 def cmd(request):
@@ -126,7 +127,20 @@ def weibo_login(request):
 
 
 def raise_error(request):
-    raise
+    raise Exception
+
+
+@csrf_exempt
+def handle_debug_param_request(request):
+    data = retrieve_param(request)
+    param_dict = {}
+    for field in data:
+        param_dict[field] = data[field]
+
+    param = json.dumps(param_dict)
+    v = DebugRequestParam(request_json=param)
+    v.save()
+    return HttpResponse("Good")
 
 
 @csrf_exempt

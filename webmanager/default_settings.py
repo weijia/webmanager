@@ -1,4 +1,5 @@
 INSTALLED_APPS += (
+    'reversion',  # This is required in serializer_generator.py to support revision for model
     'provider',
     'provider.oauth2',
     'simplemenu',
