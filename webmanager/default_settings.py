@@ -5,6 +5,7 @@ INSTALLED_APPS += (
     'webmanager',
     'bootstrapform',
     'userenabootstrap',
+    'easy_thumbnails',
     'userena',
     # 'social_auth',
 )
